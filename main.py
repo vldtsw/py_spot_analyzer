@@ -1,3 +1,5 @@
+from pprint import pprint
+
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 from dotenv import load_dotenv
@@ -12,13 +14,13 @@ sp = spotipy.Spotify(
         client_id=os.getenv("SPOTIPY_CLIENT_ID"),
         client_secret=os.getenv("SPOTIPY_CLIENT_SECRET"),
         redirect_uri=os.getenv("SPOTIPY_REDIRECT_URI"),
-        # scope="playlist-read-private",
+        scope="user-top-read",
     )
 )
 
-# Fetch the user's playlists
-results = sp.current_user_playlists()
-
-# Print the name of each playlist
-for item in results["items"]:
-    print(item["name"])
+top_tracks = sp.current_user_top_tracks(limit=10)["items"]
+top_tracks = tuple(
+    f"{track['name']} – {', '.join(artist['name'] for artist in track['artists'])}"
+    for track in top_tracks
+)
+print(top_tracks)
