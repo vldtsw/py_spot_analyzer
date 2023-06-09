@@ -1,3 +1,5 @@
-WIP Python project to show user's Spotify profile analytics (top tracks, genres, avg bpm etc.).
+### Spotify Profile Analytics
 
-Purpose - practice in building console based interface using urwid library.
+This is a work-in-progress Python project that aims to provide analytics for a user's Spotify profile.
+
+The main purpose of this project is to practice building a console-based interface using the urwid library. By analyzing the user's Spotify data, it aims to provide insights into their music preferences and listening habits.
