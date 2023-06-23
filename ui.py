@@ -2,9 +2,8 @@ import urwid
 from spotify import SpotifyClient
 
 
-class AppUI:
+class UI:
     def __init__(self):
-        self.client = SpotifyClient()
         self.text_header = "Spotify Analytics"
 
         left_column_text = ["Account Name:", "Number of Liked Tracks:"]
@@ -23,7 +22,7 @@ class AppUI:
 
         self.listbox_content = [
             urwid.Columns([self.left_pile, self.right_pile]),
-            # urwid.Text(markup="Additional Text Widget", align="center"),
+            urwid.Text(markup="Additional Text Widget", align="center"),
         ]
 
         self.header = urwid.AttrWrap(
@@ -41,19 +40,31 @@ class AppUI:
             ("body", "black", "light gray", "standout"),
         ]
 
-    def update_account_info(self):
-        account_name = self.client.get_account_name()
-        num_liked_tracks = self.client.get_num_liked_tracks()
-
+    def update_account_info(self, account_name, num_liked_tracks):
         self.account_name_text.set_text(account_name)
         self.num_liked_tracks_text.set_text(str(num_liked_tracks))
 
     def run(self):
-        self.update_account_info()
         urwid.MainLoop(
-            widget=self.frame, palette=self.palette, unhandled_input=self.q_exit
+            widget=self.frame,
+            palette=self.palette,
+            unhandled_input=self.q_exit
         ).run()
 
-    def q_exit(self, key):
+    @staticmethod
+    def q_exit(key):
         if key in {"Q", "q"}:
             raise urwid.ExitMainLoop()
+
+
+class AppUI:
+    def __init__(self):
+        self.ui = UI()
+        self.client = SpotifyClient()
+
+    def run(self):
+        account_name = self.client.get_account_name()
+        num_liked_tracks = self.client.get_num_liked_tracks()
+
+        self.ui.update_account_info(account_name, num_liked_tracks)
+        self.ui.run()
