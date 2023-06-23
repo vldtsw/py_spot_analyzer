@@ -1,7 +1,7 @@
 env_variables = {
-    "SPOTIPY_CLIENT_ID": None,
-    "SPOTIPY_CLIENT_SECRET": None,
-    "SPOTIPY_REDIRECT_URI": None,
+    "SPOTIPY_CLIENT_ID": "",
+    "SPOTIPY_CLIENT_SECRET": "",
+    "SPOTIPY_REDIRECT_URI": "",
 }
 
 
@@ -16,7 +16,7 @@ def get_env_variable_values():
 def generate_env_file():
     with open(".env", "w") as file:
         for key, value in env_variables.items():
-            file.write(f"{key}={value}\n")
+            file.write(f"{key.strip()}={value.strip()}\n")
 
 
 # Main execution
