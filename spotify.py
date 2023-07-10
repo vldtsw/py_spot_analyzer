@@ -6,6 +6,9 @@ from spotipy import SpotifyOAuth
 
 class SpotifyClient:
     def __init__(self):
+        # todo: add login prompt instead of using .env
+        # check if credentials exist, create if not
+        # use urwid or questionary (or regular input)
         load_dotenv()
         scope = "user-library-read"
 

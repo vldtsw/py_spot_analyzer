@@ -1,5 +1,4 @@
 import urwid
-from spotify import SpotifyClient
 
 
 class UI:
@@ -22,7 +21,7 @@ class UI:
 
         self.listbox_content = [
             urwid.Columns([self.left_pile, self.right_pile]),
-            urwid.Text(markup="Additional Text Widget", align="center"),
+            # urwid.Text(markup="Additional Text Widget", align="center"),
         ]
 
         self.header = urwid.AttrWrap(
@@ -41,8 +40,8 @@ class UI:
         ]
 
     def update_account_info(self, account_name, num_liked_tracks):
-        self.account_name_text.set_text(account_name)
-        self.num_liked_tracks_text.set_text(str(num_liked_tracks))
+        self.account_name_text.set_text(markup=account_name)
+        self.num_liked_tracks_text.set_text(markup=str(num_liked_tracks))
 
     def run(self):
         urwid.MainLoop(
@@ -58,13 +57,16 @@ class UI:
 
 
 class AppUI:
-    def __init__(self):
+    def __init__(self, client):
         self.ui = UI()
-        self.client = SpotifyClient()
+        self.client = client
 
     def run(self):
         account_name = self.client.get_account_name()
         num_liked_tracks = self.client.get_num_liked_tracks()
 
-        self.ui.update_account_info(account_name, num_liked_tracks)
+        self.ui.update_account_info(
+            account_name=account_name,
+            num_liked_tracks=num_liked_tracks
+        )
         self.ui.run()
