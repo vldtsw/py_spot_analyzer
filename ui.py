@@ -2,25 +2,36 @@ import urwid
 
 
 class UI:
+    palette = [
+        ("body", "black", "light gray", "standout"),
+    ]
+
+    COLUMNS_PADDING = 2
+
     def __init__(self):
         self.text_header = "Spotify Analytics"
 
-        left_column_text = ["Account Name:", "Number of Liked Tracks:"]
+        self.text_exit = urwid.Text("Press q to exit", align="right")
+
+        left_column_text = ["Account Name:",
+                            "Number of Liked Tracks:"]
         self.left_column = [urwid.Text(line) for line in left_column_text]
 
         self.account_name_text = urwid.Text("")
         self.num_liked_tracks_text = urwid.Text("")
 
         self.left_pile = urwid.Pile(
-            urwid.Padding(w=w, left=5, right=0) for w in self.left_column
+            urwid.Padding(w=w, left=self.COLUMNS_PADDING, right=0)
+            for w in self.left_column
         )
         self.right_pile = urwid.Pile(
-            urwid.Padding(w=w, left=0, right=5)
+            urwid.Padding(w=w, left=0, right=self.COLUMNS_PADDING)
             for w in [self.account_name_text, self.num_liked_tracks_text]
         )
 
         self.listbox_content = [
-            urwid.Columns([self.left_pile, self.right_pile]),
+            urwid.Padding(w=self.text_exit, left=0, right=self.COLUMNS_PADDING),
+            urwid.Columns(widget_list=[self.left_pile, self.right_pile]),
             # urwid.Text(markup="Additional Text Widget", align="center"),
         ]
 
@@ -34,10 +45,6 @@ class UI:
         self.body = urwid.AttrWrap(w=self.listbox, attr="body")
 
         self.frame = urwid.Frame(header=self.header, body=self.body)
-
-        self.palette = [
-            ("body", "black", "light gray", "standout"),
-        ]
 
     def update_account_info(self, account_name, num_liked_tracks):
         self.account_name_text.set_text(markup=account_name)
