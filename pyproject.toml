@@ -9,7 +9,7 @@ description = "A Python project that provides analytics for a user's Spotify pro
 authors = ["W T"]
 
 [tool.poetry.dependencies]
-python = "^3.8"
-urwid = "^2.1.2"
-spotipy = "^2.19.0"
-python-dotenv = "^0.19.1"
+python = "^3.10"
+urwid = "^2.3.4"
+spotipy = "^2.23.0"
+python-dotenv = "^1.0.0"
