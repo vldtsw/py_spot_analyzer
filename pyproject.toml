@@ -1,15 +1,17 @@
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
-
 [tool.poetry]
-name = "spotify-profile-analyzer"
-version = "0.0.3"
-description = "A Python project that provides analytics for a user's Spotify profile."
-authors = ["W T"]
+name = "spotify-analitics"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.10"
-urwid = "^2.3.4"
+urwid = "^2.6.9"
 spotipy = "^2.23.0"
-python-dotenv = "^1.0.0"
+python-dotenv = "^1.0.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
