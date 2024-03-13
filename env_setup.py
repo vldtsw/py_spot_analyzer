@@ -8,7 +8,7 @@ env_variables = {
 # Function to get values for the environment variables from user input
 def get_env_variable_values():
     for key in env_variables:
-        value = input(f"Enter the value for '{key}': ")
+        value = input(f"'{key}': ")
         env_variables[key] = value
 
 
