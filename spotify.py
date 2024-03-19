@@ -6,13 +6,10 @@ from spotipy import SpotifyOAuth
 
 class SpotifyClient:
     def __init__(self):
-        # todo: add login prompt instead of using .env
-        # check if credentials exist, create if not
-        # use urwid or questionary (or regular input)
         load_dotenv()
-        scope = "user-library-read"
+        scope: str = "user-library-read"
 
-        self.sp = spotipy.Spotify(
+        self.sp: spotipy.Spotify = spotipy.Spotify(
             auth_manager=SpotifyOAuth(
                 client_id=os.getenv("SPOTIPY_CLIENT_ID"),
                 client_secret=os.getenv("SPOTIPY_CLIENT_SECRET"),
@@ -21,10 +18,10 @@ class SpotifyClient:
             )
         )
 
-    def get_account_name(self):
-        user = self.sp.current_user()
+    def get_account_name(self) -> str:
+        user: dict = self.sp.current_user()
         return user["display_name"]
 
     def get_num_liked_tracks(self) -> int:
-        response = self.sp.current_user_saved_tracks(limit=1)
+        response: dict = self.sp.current_user_saved_tracks(limit=1)
         return response["total"]
