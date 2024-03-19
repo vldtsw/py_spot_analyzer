@@ -19,9 +19,13 @@ def generate_env_file():
             file.write(f"{key.strip()}={value.strip()}\n")
 
 
-# Main execution
-if __name__ == "__main__":
+def env_setup():
     print("Enter the values for the environment variables:")
     get_env_variable_values()
     generate_env_file()
     print(".env file has been generated successfully.")
+
+
+# Main execution
+if __name__ == "__main__":
+    env_setup()

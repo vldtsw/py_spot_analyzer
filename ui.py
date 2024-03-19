@@ -13,8 +13,7 @@ class UI:
 
         self.text_exit = urwid.Text("Press q to exit", align="right")
 
-        left_column_text = ["Account Name:",
-                            "Number of Liked Tracks:"]
+        left_column_text = ["Account Name:", "Number of Liked Tracks:"]
         self.left_column = [urwid.Text(line) for line in left_column_text]
 
         self.account_name_text = urwid.Text("")
@@ -39,22 +38,18 @@ class UI:
             w=urwid.Text(markup=self.text_header, align="center"), attr="header"
         )
 
-        self.listbox = urwid.ListBox(
-            body=urwid.SimpleListWalker(self.listbox_content)
-        )
+        self.listbox = urwid.ListBox(body=urwid.SimpleListWalker(self.listbox_content))
         self.body = urwid.AttrWrap(w=self.listbox, attr="body")
 
         self.frame = urwid.Frame(header=self.header, body=self.body)
 
-    def update_account_info(self, account_name, num_liked_tracks):
+    def update_account_info(self, account_name: str, num_liked_tracks):
         self.account_name_text.set_text(markup=account_name)
         self.num_liked_tracks_text.set_text(markup=str(num_liked_tracks))
 
     def run(self):
         urwid.MainLoop(
-            widget=self.frame,
-            palette=self.palette,
-            unhandled_input=self.q_exit
+            widget=self.frame, palette=self.palette, unhandled_input=self.q_exit
         ).run()
 
     @staticmethod
@@ -73,7 +68,6 @@ class AppUI:
         num_liked_tracks = self.client.get_num_liked_tracks()
 
         self.ui.update_account_info(
-            account_name=account_name,
-            num_liked_tracks=num_liked_tracks
+            account_name=account_name, num_liked_tracks=num_liked_tracks
         )
         self.ui.run()

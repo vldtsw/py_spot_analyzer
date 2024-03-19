@@ -25,6 +25,6 @@ class SpotifyClient:
         user = self.sp.current_user()
         return user["display_name"]
 
-    def get_num_liked_tracks(self):
+    def get_num_liked_tracks(self) -> int:
         response = self.sp.current_user_saved_tracks(limit=1)
         return response["total"]
